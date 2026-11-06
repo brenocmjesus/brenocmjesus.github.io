@@ -165,7 +165,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .events{display:grid;gap:1rem}
 .event{display:grid;grid-template-columns:7.5rem minmax(0,1fr) 11rem;background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
 .event.near{border-color:var(--gold);box-shadow:inset 4px 0 0 var(--gold)}
-.date{background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem .5rem;font-family:var(--display);text-align:center;border-right:4px solid var(--gold)}
+.date{background:var(--band);color:var(--band-ink);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem .5rem;font-family:var(--display);text-align:center;border-right:4px solid var(--gold)}
 .date .m{font-size:.72rem;font-weight:800;letter-spacing:.08em;color:var(--gold)}
 .date .d{font-size:2.4rem;font-weight:900;font-stretch:110%;line-height:1;margin:.15rem 0}
 .date .to{font-size:.78rem;opacity:.75}
@@ -185,8 +185,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .btn:hover{filter:brightness(.96)}
 .ev-note{font-family:var(--display);font-size:.72rem;color:var(--ink-3);text-align:center;line-height:1.3}
 
-.horizon{margin-top:1rem;font-family:var(--display);font-size:.92rem;color:var(--ink-2);background:var(--paper);border:1px dashed var(--rule-2);border-radius:10px;padding:1rem 1.25rem}
-.horizon a{font-weight:700;color:var(--gold-ink)}
+.ev-group > p.horizon{max-width:none}
+.horizon{margin:1rem 0 0;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;font-family:var(--display);font-size:.95rem;color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:1rem 1.5rem}
+.horizon .hz-label{font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--ink-3);border:1px solid var(--rule-2);border-radius:4px;padding:.25rem .55rem;white-space:nowrap}
+.horizon .hz-text{flex:1 1 20rem}
+.horizon a{font-weight:800;color:var(--gold-ink);white-space:nowrap}
 
 /* Must not miss */
 .must{background:var(--band);color:var(--band-ink);margin-top:3.5rem}
@@ -219,9 +222,15 @@ footer b{color:var(--ink)}
   .cover .wrap{grid-template-columns:1fr;gap:2rem}
   .story{grid-template-columns:1fr;gap:1.75rem;padding:2rem}
   .side{border-left:0;border-top:1px solid var(--rule);padding:1.25rem 0 0;position:static}
-  .event{grid-template-columns:6.5rem minmax(0,1fr)}
-  .ev-cta{grid-column:1/-1;flex-direction:row;padding:0 1.25rem 1.25rem;flex-wrap:wrap}
-  .ev-cta .btn{flex:1 1 10rem}
+  .event{grid-template-columns:1fr}
+  .date{flex-direction:row;align-items:baseline;justify-content:flex-start;gap:.55rem;border-right:0;border-bottom:4px solid var(--gold);padding:.8rem 1.25rem;text-align:left}
+  .date .d{order:-1;font-size:1.7rem;margin:0}
+  .date .m{font-size:.8rem}
+  .date .fmt{margin:0 0 0 auto;align-self:center}
+  .event.near{box-shadow:none}
+  .ev-body{padding:1.1rem 1.25rem .5rem}
+  .ev-cta{grid-column:auto;flex-direction:row;align-items:center;gap:1rem;padding:.5rem 1.25rem 1.25rem}
+  .ev-cta .btn{flex:0 1 16rem}
   .must ol{grid-template-columns:1fr}
 }
 @media (max-width:720px){
@@ -234,6 +243,12 @@ footer b{color:var(--ink)}
   .tracker .row.head{display:none}
   .facts div{grid-template-columns:6.5rem 1fr}
   .check{padding:1.5rem 1.25rem}
+}
+@media (max-width:720px){
+  .ev-cta{flex-direction:column;align-items:stretch;gap:.5rem}
+  .ev-cta .btn{flex:none}
+  .brief{padding-top:2.25rem}
+  .horizon{padding:1rem 1.25rem}
 }
 @media print{
   .bar{display:none}
@@ -672,7 +687,7 @@ footer b{color:var(--ink)}
           <article class="event near">
             <div class="date"><span class="m">NOV 2026</span><span class="d">4</span><span class="to">até 6</span><span class="fmt">PRESENCIAL</span></div>
             <div class="ev-body">
-              <span class="star">★ PENÍNSULA IBÉRICA</span><span class="now">A DECORRER, TERMINA AMANHÃ</span>
+              <span class="star">★ PENÍNSULA IBÉRICA</span><span class="now">ATÉ 6 DE NOVEMBRO</span>
               <h4>EXPOCARNE e EXPOALIMENTA Porto 2026</h4>
               <p class="where">Exponor, Matosinhos, Portugal</p>
               <div class="ev-facts"><span>Organiza <b>Exposalão</b></span><span>Para <b>profissionais</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
@@ -729,8 +744,22 @@ footer b{color:var(--ink)}
             </div>
           </article>
 
+        
+          <article class="event near">
+            <div class="date"><span class="m">JUN 2027</span><span class="d">1</span><span class="to">até 4</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">A SEGUIR</span>
+              <h4>EMAF 2027</h4>
+              <p class="where">Exponor, Matosinhos, Portugal</p>
+              <div class="ev-facts"><span>Organiza <b>Exponor</b></span><span>Para <b>indústria transformadora</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> a maior feira portuguesa de máquinas, equipamentos e serviços para a indústria, bienal, com espaços dedicados à Indústria 4.0. Fica logo depois do horizonte de seis meses desta agenda.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn gold" href="https://exponor.pt/en/emaf/" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
         </div>
-        <p class="horizon">Logo depois do horizonte de seis meses: a <b>EMAF 2027</b>, a maior feira portuguesa de máquinas e equipamentos para a indústria, decorre na Exponor de 1 a 4 de junho de 2027. <a href="https://exponor.pt/en/emaf/" target="_blank" rel="noopener">Ver página oficial</a></p>
       </div>
 
       <div class="ev-group" id="europa">
