@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Radar OT &amp; IIoT, por Breno Carneiro — 6 de novembro de 2026</title>
+<meta name="description" content="Revista semanal sobre OT, IIoT e cibersegurança industrial: lançamentos, segurança e eventos na Península Ibérica e na Europa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --page:#EFEEEA; --paper:#FFFFFF; --ink:#1B1B19; --ink-2:#45443F; --ink-3:#6C6B65;
+  --rule:#DCDBD5; --rule-2:#C9C8C1;
+  --gold:#B59A58; --gold-ink:#7A6535; --gold-wash:#F5F0E3;
+  --crit:#B4442F; --crit-wash:#F7E7E3; --ok:#4F7A4A; --ok-wash:#E9F0E7; --neutral-wash:#ECECE8;
+  --band:#1B1B19; --band-ink:#F2F1EC; --band-ink-2:#B9B8B1;
+  --display:'Archivo','Arial Narrow',Arial,sans-serif;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --measure:40rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#141413; --paper:#1D1D1B; --ink:#EDECE6; --ink-2:#C8C7C0; --ink-3:#9B9A93;
+    --rule:#33332F; --rule-2:#45453F;
+    --gold:#CBAF6B; --gold-ink:#D9C084; --gold-wash:#28241A;
+    --crit:#E58572; --crit-wash:#36201B; --ok:#93BE8B; --ok-wash:#1E2A1D; --neutral-wash:#26262330;
+    --band:#0D0D0C; --band-ink:#EDECE6; --band-ink-2:#A3A29B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#141413; --paper:#1D1D1B; --ink:#EDECE6; --ink-2:#C8C7C0; --ink-3:#9B9A93;
+  --rule:#33332F; --rule-2:#45453F;
+  --gold:#CBAF6B; --gold-ink:#D9C084; --gold-wash:#28241A;
+  --crit:#E58572; --crit-wash:#36201B; --ok:#93BE8B; --ok-wash:#1E2A1D; --neutral-wash:#26262330;
+  --band:#0D0D0C; --band-ink:#EDECE6; --band-ink-2:#A3A29B;
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--serif);font-size:1.125rem;line-height:1.66;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:72rem;margin:0 auto;padding:0 1.5rem}
+.sans{font-family:var(--display)}
+
+/* Sticky bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--rule)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:21;background:var(--paper)}
+.bar .wrap{display:flex;align-items:center;gap:1.5rem;height:56px}
+.bar .mark{font-family:var(--display);font-weight:800;font-stretch:112%;letter-spacing:.02em;font-size:.95rem;text-decoration:none;white-space:nowrap}
+.bar .mark span{color:var(--gold-ink)}
+.bar nav{display:flex;gap:.25rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{font-family:var(--display);font-size:.85rem;font-weight:600;text-decoration:none;color:var(--ink-2);padding:.4rem .7rem;border-radius:999px;white-space:nowrap}
+.bar nav a:hover{background:var(--neutral-wash);color:var(--ink)}
+.bar nav a.on{background:var(--ink);color:var(--paper)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:0;background:var(--gold)}
+
+/* Cover */
+.cover{background:var(--paper);border-bottom:1px solid var(--rule)}
+.cover .wrap{padding-top:4rem;padding-bottom:3.5rem;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(16rem,1fr);gap:3rem;align-items:end}
+.kick{font-family:var(--display);font-size:.9rem;font-weight:600;color:var(--ink-3);margin:0 0 1.5rem}
+.kick b{color:var(--ink);font-weight:800}
+.title{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(3.5rem,8vw,8rem);white-space:nowrap;line-height:.82;letter-spacing:-.03em;margin:0}
+.title-sub{font-family:var(--display);font-weight:700;font-stretch:125%;font-size:clamp(1.4rem,3.6vw,2.6rem);letter-spacing:-.01em;margin:.6rem 0 0;color:var(--ink-2)}
+.title-sub em{font-style:normal;color:var(--gold-ink)}
+.dek{max-width:34rem;font-size:1.25rem;line-height:1.5;color:var(--ink-2);margin:1.75rem 0 0}
+.facts{border-top:4px solid var(--ink);padding-top:1rem;font-family:var(--display);display:grid;gap:1rem}
+.facts div{display:grid;grid-template-columns:7.5rem 1fr;gap:.75rem;border-bottom:1px solid var(--rule);padding-bottom:.85rem}
+.facts dt{font-size:.82rem;font-weight:600;color:var(--ink-3);margin:0}
+.facts dd{margin:0;font-weight:700;font-size:1rem}
+
+/* Three minutes */
+.brief{padding:3rem 0 1rem}
+.brief h2{font-family:var(--display);font-weight:800;font-stretch:110%;font-size:1.05rem;margin:0 0 1.25rem;color:var(--ink-2)}
+.brief ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.brief li{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:1.4rem 1.4rem 1.3rem;display:flex;flex-direction:column;gap:.6rem}
+.brief li .n{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:2rem;line-height:1;color:var(--gold)}
+.brief li p{margin:0;font-size:1.05rem;line-height:1.5}
+.brief li a{font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--gold-ink);text-decoration:none;margin-top:auto}
+.brief li a:hover{text-decoration:underline}
+.brief li.alert{border-top:4px solid var(--crit)}
+
+/* Parts index */
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;padding:1rem 0 3rem}
+.parts a{display:block;text-decoration:none;border-top:2px solid var(--ink);padding:1rem 0 0}
+.parts .pn{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:3rem;line-height:1;color:var(--gold)}
+.parts .pt{font-family:var(--display);font-weight:800;font-size:1.3rem;margin:.35rem 0 .2rem}
+.parts .pd{color:var(--ink-3);font-size:1rem;margin:0}
+.parts a:hover .pt{text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
+
+/* Part opener */
+.opener{background:var(--band);color:var(--band-ink);margin:2rem 0 0}
+.opener .wrap{padding-top:3.5rem;padding-bottom:3rem;display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:end}
+.opener .big{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(5rem,14vw,9rem);line-height:.8;color:var(--gold)}
+.opener h2{font-family:var(--display);font-weight:900;font-stretch:118%;font-size:clamp(2rem,5vw,3.4rem);line-height:1;letter-spacing:-.02em;margin:0 0 .75rem}
+.opener p{margin:0;max-width:38rem;color:var(--band-ink-2);font-size:1.15rem}
+
+/* Articles */
+.stack{padding:2.5rem 0 1rem;display:grid;gap:1.75rem}
+.story{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:2.5rem;display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:2.5rem}
+.story.solo{grid-template-columns:minmax(0,1fr)}
+.story.lead{border-top:6px solid var(--crit)}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 1.1rem;font-family:var(--display)}
+.tag{font-size:.72rem;font-weight:800;letter-spacing:.06em;padding:.3rem .6rem;border-radius:4px;border:1px solid var(--rule-2);color:var(--ink-2)}
+.tag.dark{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.tag.crit{color:var(--crit);border-color:var(--crit);background:var(--crit-wash)}
+.tag.high{background:var(--gold);border-color:var(--gold);color:#1B1B19}
+.tag.mod{color:var(--gold-ink);border-color:var(--gold)}
+.tag.info{color:var(--ink);border-color:var(--ink)}
+.story h3{font-family:var(--display);font-weight:800;font-stretch:106%;font-size:clamp(1.55rem,3.4vw,2.2rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 .55rem}
+.story.lead h3{font-size:clamp(1.9rem,4.4vw,2.9rem)}
+.meta{font-family:var(--display);font-size:.88rem;color:var(--ink-3);margin:0 0 1.75rem}
+.meta i{font-style:normal;color:var(--ink-2)}
+.body{max-width:var(--measure)}
+.body h4{font-family:var(--display);font-size:.95rem;font-weight:800;color:var(--gold-ink);margin:1.6rem 0 .35rem}
+.body h4:first-child{margin-top:0}
+.body p{margin:0 0 .9rem}
+.explain{background:var(--page);border-radius:8px;padding:1.1rem 1.3rem;margin:1.4rem 0}
+.explain h4{color:var(--ink-2);margin-top:0}
+.explain p:last-child{margin-bottom:0}
+.verify{border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:1.1rem 1.3rem;margin:1.4rem 0 0}
+.verify h4{margin-top:0}
+.verify p:last-child{margin-bottom:0}
+.c{font-family:var(--display);font-size:.74rem;font-weight:700;color:var(--ink-3);white-space:nowrap}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em;background:var(--neutral-wash);padding:.05em .3em;border-radius:3px}
+
+.side{font-family:var(--display);font-size:.9rem;border-left:1px solid var(--rule);padding-left:1.5rem;align-self:start;position:sticky;top:80px}
+.side h5{font-size:.78rem;font-weight:800;letter-spacing:.06em;color:var(--ink-3);margin:0 0 .75rem}
+.side dl{margin:0 0 1.5rem;display:grid;gap:.7rem}
+.side dt{font-size:.75rem;font-weight:700;color:var(--ink-3)}
+.side dd{margin:.1rem 0 0;font-weight:600;color:var(--ink);line-height:1.35}
+.links{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.links a{display:block;text-decoration:none;border:1px solid var(--rule-2);border-bottom:3px solid var(--gold);border-radius:6px;padding:.55rem .75rem;font-weight:700;line-height:1.3;min-height:40px}
+.links a:hover{border-color:var(--ink);border-bottom-color:var(--gold)}
+.links a small{display:block;font-weight:500;color:var(--ink-3);font-size:.78rem;margin-top:.15rem}
+
+/* Tracker */
+.section-h{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.8rem;letter-spacing:-.015em;margin:3rem 0 .4rem}
+.section-d{color:var(--ink-3);margin:0 0 1.25rem;max-width:42rem}
+.tracker{background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.tracker .row{display:grid;grid-template-columns:13rem 9rem 1fr;gap:1.5rem;padding:1.2rem 1.5rem;border-top:1px solid var(--rule);align-items:baseline}
+.tracker .row:first-child{border-top:0}
+.tracker .row.head{background:var(--page);font-family:var(--display);font-size:.78rem;font-weight:800;color:var(--ink-3);padding:.75rem 1.5rem}
+.tracker .case{font-family:var(--display);font-weight:800}
+.tracker .st{font-family:var(--display);font-size:.8rem;font-weight:800}
+.st.up{color:var(--crit)} .st.same{color:var(--gold-ink)} .st.down{color:var(--ok)}
+.tracker p{margin:0}
+
+.mini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.mini article{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:1.6rem}
+.mini h4{font-family:var(--display);font-weight:800;font-size:1.2rem;margin:0 0 .5rem}
+.mini p{margin:0 0 .8rem}
+.mini .links{margin-top:.5rem}
+
+/* Events */
+.ev-group{margin:2.5rem 0 0}
+.ev-group h3{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.8rem;margin:0 0 .3rem;letter-spacing:-.015em}
+.ev-group > p{color:var(--ink-3);margin:0 0 1.25rem;max-width:42rem}
+.events{display:grid;gap:1rem}
+.event{display:grid;grid-template-columns:7.5rem minmax(0,1fr) 11rem;background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.event.near{border-color:var(--gold);box-shadow:inset 4px 0 0 var(--gold)}
+.date{background:var(--band);color:var(--band-ink);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem .5rem;font-family:var(--display);text-align:center;border-right:4px solid var(--gold)}
+.date .m{font-size:.72rem;font-weight:800;letter-spacing:.08em;color:var(--gold)}
+.date .d{font-size:2.4rem;font-weight:900;font-stretch:110%;line-height:1;margin:.15rem 0}
+.date .to{font-size:.78rem;opacity:.75}
+.date .fmt{margin-top:.5rem;font-size:.62rem;font-weight:800;letter-spacing:.08em;border:1px solid currentColor;padding:.15rem .4rem;border-radius:3px;opacity:.85}
+.ev-body{padding:1.25rem 1.5rem}
+.star{display:inline-block;font-family:var(--display);font-size:.7rem;font-weight:800;letter-spacing:.05em;background:var(--gold);color:#1B1B19;padding:.2rem .5rem;border-radius:3px;margin-bottom:.5rem}
+.now{display:inline-block;font-family:var(--display);font-size:.7rem;font-weight:800;letter-spacing:.05em;background:var(--crit-wash);color:var(--crit);padding:.2rem .5rem;border-radius:3px;margin:0 0 .5rem .35rem}
+.ev-body h4{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.2;margin:0}
+.ev-body .where{font-family:var(--display);font-size:.88rem;color:var(--ink-3);margin:.2rem 0 .8rem}
+.ev-facts{display:flex;flex-wrap:wrap;gap:.35rem 1.25rem;font-family:var(--display);font-size:.82rem;margin:0 0 .7rem}
+.ev-facts span{color:var(--ink-3)}
+.ev-facts b{font-weight:700;color:var(--ink)}
+.ev-body p{margin:0;font-size:1rem;line-height:1.55}
+.ev-cta{display:flex;flex-direction:column;justify-content:center;gap:.5rem;padding:1.25rem 1.25rem 1.25rem 0}
+.btn{display:flex;align-items:center;justify-content:center;min-height:44px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:.88rem;border:1px solid var(--ink);border-bottom:3px solid var(--gold);border-radius:6px;padding:.5rem .8rem;text-align:center}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#1B1B19}
+.btn:hover{filter:brightness(.96)}
+.ev-note{font-family:var(--display);font-size:.72rem;color:var(--ink-3);text-align:center;line-height:1.3}
+
+.ev-group > p.horizon{max-width:none}
+.horizon{margin:1rem 0 0;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;font-family:var(--display);font-size:.95rem;color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:1rem 1.5rem}
+.horizon .hz-label{font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--ink-3);border:1px solid var(--rule-2);border-radius:4px;padding:.25rem .55rem;white-space:nowrap}
+.horizon .hz-text{flex:1 1 20rem}
+.horizon a{font-weight:800;color:var(--gold-ink);white-space:nowrap}
+
+/* Must not miss */
+.must{background:var(--band);color:var(--band-ink);margin-top:3.5rem}
+.must .wrap{padding-top:3rem;padding-bottom:3rem}
+.must h2{font-family:var(--display);font-weight:900;font-stretch:118%;font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 1.75rem;letter-spacing:-.015em}
+.must ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.must li{border-top:1px solid #4A4A44;padding-top:1rem}
+.must .act{display:inline-block;font-family:var(--display);font-size:.72rem;font-weight:800;letter-spacing:.08em;background:var(--gold);color:#1B1B19;padding:.25rem .55rem;border-radius:3px;margin-bottom:.7rem}
+.must p{margin:0;color:var(--band-ink);font-size:1.05rem;line-height:1.55}
+.must p small{display:block;color:var(--band-ink-2);font-size:.92rem;margin-top:.4rem}
+
+/* Checklist */
+.check{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:2rem 2.25rem;margin:3rem 0 0}
+.check h2{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.8rem;margin:0 0 .3rem}
+.check > p{color:var(--ink-3);margin:0 0 1.25rem}
+.check ol{margin:0;padding:0;list-style:none;counter-reset:k;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 2.5rem}
+.check li{counter-increment:k;display:grid;grid-template-columns:2rem 1fr;gap:.5rem;padding:.85rem 0;border-top:1px solid var(--rule)}
+.check li::before{content:counter(k);font-family:var(--display);font-weight:900;color:var(--gold);font-size:1.1rem}
+.check b{font-family:var(--display)}
+
+.li-btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:.5rem;min-height:44px;padding:.6rem 1.1rem;font-family:var(--display);font-weight:800;font-size:.95rem;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:6px;border-bottom:3px solid var(--gold)}
+.li-btn:hover{filter:brightness(1.15)}
+.closing{text-align:left}
+.legend{font-family:var(--display);font-size:.85rem;color:var(--ink-3);line-height:1.65;margin:2.5rem 0 0;max-width:52rem}
+footer{border-top:1px solid var(--rule);margin-top:3rem}
+footer .wrap{padding-top:1.75rem;padding-bottom:3rem;font-family:var(--display);font-size:.85rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
+footer b{color:var(--ink)}
+
+@media (max-width:980px){
+  .cover .wrap{grid-template-columns:1fr;gap:2rem}
+  .story{grid-template-columns:1fr;gap:1.75rem;padding:2rem}
+  .side{border-left:0;border-top:1px solid var(--rule);padding:1.25rem 0 0;position:static}
+  .event{grid-template-columns:1fr}
+  .date{flex-direction:row;align-items:baseline;justify-content:flex-start;gap:.55rem;border-right:0;border-bottom:4px solid var(--gold);padding:.8rem 1.25rem;text-align:left}
+  .date .d{order:-1;font-size:1.7rem;margin:0}
+  .date .m{font-size:.8rem}
+  .date .fmt{margin:0 0 0 auto;align-self:center}
+  .event.near{box-shadow:none}
+  .ev-body{padding:1.1rem 1.25rem .5rem}
+  .ev-cta{grid-column:auto;flex-direction:row;align-items:center;gap:1rem;padding:.5rem 1.25rem 1.25rem}
+  .ev-cta .btn{flex:0 1 16rem}
+  .must ol{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  body{font-size:1.06rem}
+  .wrap{padding:0 1.1rem}
+  .brief ol,.parts,.mini,.check ol{grid-template-columns:1fr}
+  .opener .wrap{grid-template-columns:1fr;gap:.5rem}
+  .story{padding:1.5rem 1.25rem}
+  .tracker .row{grid-template-columns:1fr;gap:.3rem}
+  .tracker .row.head{display:none}
+  .facts div{grid-template-columns:6.5rem 1fr}
+  .check{padding:1.5rem 1.25rem}
+}
+@media (max-width:720px){
+  .ev-cta{flex-direction:column;align-items:stretch;gap:.5rem}
+  .ev-cta .btn{flex:none}
+  .brief{padding-top:2.25rem}
+  .horizon{padding:1rem 1.25rem}
+}
+@media print{
+  .bar{display:none}
+  body{background:#fff}
+  .story,.event,.mini article,.tracker,.check{break-inside:avoid}
+  .side{position:static}
+}
+</style>
+</head>
+<body>
+
+<div class="bar" role="navigation" aria-label="Secções">
+  <div class="wrap">
+    <a class="mark" href="index.html" title="Todas as edições">RADAR <span>OT &amp; IIoT</span></a>
+    <nav>
+      <a href="#parte-1" data-sec="parte-1">I&nbsp;Novidades</a>
+      <a href="#parte-2" data-sec="parte-2">II&nbsp;Segurança</a>
+      <a href="#parte-3" data-sec="parte-3">III&nbsp;Eventos</a>
+      <a href="index.html">Edições</a>
+    </nav>
+  </div>
+  <div class="progress" aria-hidden="true"></div>
+</div>
+
+<header class="cover" id="topo">
+  <div class="wrap">
+    <div>
+      <p class="kick"><b>por Breno Carneiro</b>, Operational Technology &amp; Industrial IoT</p>
+      <h1 class="title">RADAR</h1>
+      <p class="title-sub">OT <em>&amp;</em> IIoT</p>
+      <p class="dek">Revista semanal para quem gere tecnologia industrial: o que foi lançado, o que foi atacado e onde vale a pena estar nos próximos seis meses.</p>
+    </div>
+    <dl class="facts">
+      <div><dt>Edição</dt><dd>6 de novembro de 2026</dd></div>
+      <div><dt>Notícias</dt><dd>30 out a 6 nov 2026</dd></div>
+      <div><dt>Agenda</dt><dd>Até 6 de maio de 2027</dd></div>
+      <div><dt>Leitura</dt><dd>Cerca de 15 minutos</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="wrap brief" aria-labelledby="tres-minutos">
+    <h2 id="tres-minutos">Se só tiver três minutos</h2>
+    <ol>
+      <li class="alert">
+        <span class="n">1</span>
+        <p>Os ataques aos controladores de frio chegaram a fornecedores de carne no Reino Unido, por supervisores com firmware por atualizar desde agosto. Em Portugal, três das sete lojas afetadas perderam produto.</p>
+        <a href="#frio">Ler o caso</a>
+      </li>
+      <li>
+        <span class="n">2</span>
+        <p>As falhas PHP2Shell, já exploradas na internet, chegaram ao firmware de PLC e painéis da WAGO e a software da Festo. Há correção para quase tudo; desativar o servidor web é a mitigação imediata.</p>
+        <a href="#php2shell">Ler o caso</a>
+      </li>
+      <li>
+        <span class="n">3</span>
+        <p>Dois encontros para a indústria alimentar em fevereiro: a Meat Attraction em Madrid, de 16 a 18, e a Anuga FoodTec em Colónia, de 23 a 26.</p>
+        <a href="#ev-anuga">Ver o evento</a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="wrap parts" aria-label="Partes da edição">
+    <a href="#parte-1"><div class="pn">I</div><div class="pt">Novidades e lançamentos</div><p class="pd">3 novidades: conectividade, indústria alimentar e IA</p></a>
+    <a href="#parte-2"><div class="pn">II</div><div class="pt">Segurança</div><p class="pd">4 casos, 2 notas e acompanhamento</p></a>
+    <a href="#parte-3"><div class="pn">III</div><div class="pt">Eventos</div><p class="pd">Península Ibérica e Europa</p></a>
+  </nav>
+
+  <!-- ═════════════ PARTE I ═════════════ -->
+  <section id="parte-1" aria-labelledby="h-p1">
+    <div class="opener">
+      <div class="wrap">
+        <div class="big" aria-hidden="true">I</div>
+        <div>
+          <h2 id="h-p1">Novidades e lançamentos</h2>
+          <p>Uma semana de anúncios mais pequenos, mas próximos do chão de fábrica: um módulo de comunicação multiprotocolo, serviços remotos para linhas de carne e visão artificial a decidir na própria câmara.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap stack">
+      <article class="story" id="ti-multiprotocolo">
+        <div class="body">
+          <div class="tags"><span class="tag dark">CONECTIVIDADE</span><span class="tag">IMPRENSA ESPECIALIZADA</span><span class="tag">COMUNICAÇÃO COMERCIAL</span></div>
+          <h3>Texas Instruments: um só módulo para EtherCAT, EtherNet/IP e Profinet</h3>
+          <p class="meta">5 de novembro de 2026, <i>Electronics World</i>, com base no anúncio da Texas Instruments</p>
+          <h4>O que foi anunciado</h4>
+          <p>A Texas Instruments apresentou dois componentes para automação, robótica e IIoT. O TICS100MOD é um módulo de comunicações baseado no microcontrolador AM2612 e no transceptor Ethernet DP83826AI, que suporta EtherCAT, EtherNet/IP e Profinet no mesmo hardware, com o protocolo escolhido no arranque através do firmware. O TIOM2212 é um mestre IO-Link de dois canais que liga sensores e atuadores IO-Link a redes Ethernet industriais.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>Quem fabrica sensores, variadores ou máquinas tem hoje de manter versões diferentes do mesmo produto para cada rede industrial: Profinet, mais comum no ecossistema Siemens, EtherNet/IP no da Rockwell, EtherCAT no da Beckhoff. Um módulo multiprotocolo permite usar o mesmo hardware para todos. O IO-Link é uma ligação ponto a ponto entre o sensor e o módulo de entradas que, além do valor medido, transporta parâmetros e diagnóstico.</p></div>
+          <h4>O que está demonstrado e o que é promessa</h4>
+          <p>São componentes para fabricantes de equipamento, não produtos que se compram para a fábrica. A fonte não indica preço, disponibilidade nem a lista de certificações por protocolo. A descrição do módulo como um dos mais pequenos do mercado é alegação da própria empresa.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>O efeito chega ao chão de fábrica com anos de atraso, mas a direção é boa: o protocolo deixa de ficar fixo no momento da compra. A contrapartida é que trocar de protocolo passa a ser uma atualização de firmware, e convém perguntar ao fabricante da máquina como essa atualização é assinada e quem a pode fazer.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>Fabricante</dt><dd>Texas Instruments</dd></div><div><dt>Produtos</dt><dd>TICS100MOD (módulo de comunicações) e TIOM2212 (mestre IO-Link)</dd></div><div><dt>Protocolos</dt><dd>EtherCAT, EtherNet/IP, Profinet, IO-Link</dd></div><div><dt>Disponibilidade e preço</dt><dd>Não confirmado</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://www.electronicsworld.co.uk/ti-announces-two-new-devices-for-automation-robotics-and-industrial-internet-of-things-systems/42960/" target="_blank" rel="noopener">Consultar Electronics World<small>5 nov 2026</small></a></li>
+          </ul>
+        </aside>
+      </article>
+      <article class="story" id="jbt-marel">
+        <div class="body">
+          <div class="tags"><span class="tag dark">INDÚSTRIA ALIMENTAR</span><span class="tag">COMUNICAÇÃO COMERCIAL</span></div>
+          <h3>JBT Marel leva monitorização remota e porcionamento de carne à CibusTec</h3>
+          <p class="meta">3 de novembro de 2026, <i>comunicado da JBT Marel via EuropaWire</i></p>
+          <h4>O que foi anunciado</h4>
+          <p>Na CibusTec 2026, em Parma, a JBT Marel mostrou cinco linhas integradas em visita virtual, três delas de carne e aves: cubos de proteína, nuggets de frango e porcionamento e embalagem de bife. Apresentou também os porcionadores RevoPortioner e TREIF HAWK e a plataforma AXIN, software modular integrado nas linhas que fornece dados de operação em tempo real. Segundo a empresa, houve procura por monitorização de desempenho online e manutenção preditiva prestadas como serviço.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>Na monitorização de desempenho online, o fabricante da máquina recolhe dados de funcionamento, como paragens, rendimento, alarmes e desgaste, e analisa-os à distância. Para isso a máquina tem de estar ligada ao fornecedor, por uma ligação permanente ou a pedido. O porcionamento automático usa visão ou medição de volume para cortar peças com peso definido, e o rendimento da linha depende da precisão desse corte.</p></div>
+          <h4>O que está demonstrado e o que é promessa</h4>
+          <p>É um comunicado da própria empresa. Os ganhos em aproveitamento de ingredientes, custos de energia e desempenho não são quantificados. Não há métricas, preços nem casos de cliente publicados.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>Os fabricantes de equipamento alimentar estão a vender o acesso remoto à máquina como serviço, e faz sentido pela manutenção. Mas numa semana em que equipamentos de frio geridos por terceiros foram atacados em vários países, cada serviço destes deve vir com uma resposta clara sobre como a máquina se liga ao fornecedor e quem gere as credenciais.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>Empresa</dt><dd>JBT Marel</dd></div><div><dt>Evento</dt><dd>CibusTec 2026, Parma, Itália</dd></div><div><dt>Produtos citados</dt><dd>AXIN, RevoPortioner, TREIF HAWK, Sterideal Ohmic, GYRoCOMPACT</dd></div><div><dt>Métricas publicadas</dt><dd>Nenhuma</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://news.europawire.eu/jbt-marel-highlights-integrated-food-processing-technology-and-efficiency-at-cibustec-2026/eu-press-release/2026/11/03/20/08/04/185869/" target="_blank" rel="noopener">Consultar EuropaWire<small>3 nov 2026</small></a></li>
+          </ul>
+        </aside>
+      </article>
+      <article class="story" id="visao-borda">
+        <div class="body">
+          <div class="tags"><span class="tag dark">INDUSTRIAL AI</span><span class="tag">IMPRENSA ESPECIALIZADA</span></div>
+          <h3>Visão artificial na borda: inspeção de selagem a 2000 peças por minuto</h3>
+          <p class="meta">5 de novembro de 2026, <i>Forbes, análise de Maribel Lopez</i></p>
+          <h4>O que foi anunciado</h4>
+          <p>Numa análise publicada na Forbes, Maribel Lopez descreve o evento Dragonwing IoT da Qualcomm, realizado em outubro em San Diego, onde clientes apresentaram sistemas em produção com IA a correr no próprio dispositivo. Entre eles, a Cognex, cujo sistema de inspeção In-Sight 3900 usa a plataforma Dragonwing: a empresa indicou 30 milissegundos por inspeção de selagem de cápsulas de café, cerca de 2000 por minuto, com 99,9% de deteção de defeitos.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>Em visão artificial na borda, o modelo de IA corre dentro da câmara ou de um pequeno computador junto à linha, sem enviar imagens para um servidor. A decisão de rejeitar uma peça chega em milissegundos e a linha não depende da rede. A plataforma Dragonwing junta processador, acelerador de IA e conectividade, incluindo Ethernet com TSN, a rede determinística usada em automação.</p></div>
+          <h4>O que está demonstrado e o que é promessa</h4>
+          <p>Os números da Cognex foram apresentados pelo próprio cliente num evento do fabricante do chip, sem estudo independente. A autora declara que a Qualcomm pagou a deslocação. Não há preços nem datas de disponibilidade.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>A inspeção de selagem é precisamente o tipo de tarefa de embalagem alimentar onde a visão na borda já está madura. Uma taxa de deteção de 99,9% impressiona, mas o que decide se uma linha aceita o sistema é a taxa de falsos rejeitados, e esse número não foi divulgado.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>Plataforma</dt><dd>Qualcomm Dragonwing</dd></div><div><dt>Caso citado</dt><dd>Cognex In-Sight 3900, inspeção de selagem</dd></div><div><dt>Métricas</dt><dd>30 ms por peça, cerca de 2000 por minuto, 99,9% de deteção (declaradas pela Cognex)</dd></div><div><dt>Tipo de fonte</dt><dd>Análise de colaboradora, viagem paga pela Qualcomm</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://www.forbes.com/sites/maribellopez/2026/11/05/edgeai-is-here-qualcomms-dragonwing-iot-day-shared-whats-possible/" target="_blank" rel="noopener">Consultar Forbes<small>5 nov 2026</small></a></li>
+          </ul>
+        </aside>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ═════════════ PARTE II ═════════════ -->
+  <section id="parte-2" aria-labelledby="h-p2">
+    <div class="opener">
+      <div class="wrap">
+        <div class="big" aria-hidden="true">II</div>
+        <div>
+          <h2 id="h-p2">Segurança</h2>
+          <p>Os ataques ao frio alastram para a indústria e uma falha explorada do PHP chega aos PLC. A classificação mede o risco geral comunicado pelas fontes, não a exposição de uma instalação concreta.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap stack">
+      <article class="story lead" id="frio">
+        <div class="body">
+          <div class="tags"><span class="tag crit">CRÍTICO</span><span class="tag dark">CADEIA DE FRIO</span><span class="tag">FONTE OFICIAL</span><span class="tag">IMPRENSA ESPECIALIZADA</span></div>
+          <h3>Ataques ao frio chegam aos fornecedores de carne e a bancos de sangue</h3>
+          <p class="meta">3 a 5 de novembro de 2026, <i>The Record, Reuters, AFP, Lusa, SentinelOne</i></p>
+          <h4>O que aconteceu</h4>
+          <p>No Reino Unido, três fornecedores de carne associados da AIMS e um grossista de fruta foram atingidos através de supervisores de frio Copeland XWEB ligados à internet; segundo uma nota partilhada entre associados, o firmware 1.12.1 e anteriores permite contornar a autenticação e havia atualização disponível desde agosto. A Reuters e a AFP contam já pelo menos 11 países europeus, com a Alemanha, a Roménia e a Itália a juntarem-se à lista, e em França três bancos de sangue tiveram unidades de frio alteradas, sem dano para doentes. Em Portugal, das sete lojas Intermarché afetadas, três perderam produto.</p>
+          <h4>O que diz a fonte oficial</h4>
+          <p>O CNCS acompanha o incidente português desde 2 de novembro, tem uma análise forense em curso e indica que o ataque terá começado num acesso não autorizado ao controlador remoto de temperatura, sob responsabilidade de um fornecedor da cadeia. Recomenda firmware atualizado, impedir o acesso a partir da internet, separar as redes de TI e OT e substituir gradualmente o equipamento mais antigo. O NCSC britânico classificou o impacto no Reino Unido como mínimo e os ataques como pouco sofisticados. A Comissão Europeia diz que os incidentes não são isolados e prometeu uma resposta conjunta, sem apontar responsáveis.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>Um supervisor de frio como o Copeland XWEB centraliza a monitorização e o controlo de vários controladores de câmaras e arcas: temperaturas, alarmes e ciclos de degelo. Os técnicos acedem-lhe por uma interface web. Contornar a autenticação significa chegar a essas funções sem palavra-passe. O ataque não precisa de mais nada: basta mudar setpoints e prolongar o degelo com a câmara cheia.</p></div>
+          <h4>Porque acontece</h4>
+          <p>Os equipamentos são muitas vezes instalados e geridos pelo prestador de frio, com ligação própria. Na Suécia, a ICA diz que as 23 lojas atingidas tinham equipamento ligado fora da rede gerida centralmente, e a Coop fala de modems 4G antigos. A investigação da SentinelOne nota que a origem é atribuída a interfaces expostas e palavras-passe fracas, e não às vulnerabilidades da Danfoss divulgadas no verão.</p>
+          <h4>Porque importa</h4>
+          <p>O caso saiu do retalho. Os fornecedores de carne britânicos não foram escolhidos por serem fornecedores de carne: a associação do setor descreve-os como danos colaterais por usarem o mesmo software. Ou seja, quem procura não escolhe o setor, procura equipamento exposto. A atribuição continua por confirmar, e a Roménia diz não suspeitar de um ator estatal.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>O padrão repete-se: quem foi atingido não foi escolhido, foi encontrado. Um supervisor de frio na internet com firmware de há meses é encontrado em horas por quem procura. A pergunta útil já não é se o equipamento é seguro, mas quem o gere, por onde se liga e quem aplica as atualizações.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>Equipamentos citados</dt><dd>Danfoss AK-SM e AK-SC; Copeland XWEB e XWEB Pro; Dixell XWEB</dd></div><div><dt>Vetor no Reino Unido</dt><dd>Interface exposta e falha de autenticação no firmware 1.12.1 e anteriores, segundo nota da AIMS</dd></div><div><dt>Correção</dt><dd>Atualização de firmware disponível desde agosto; versão exata não confirmada</dd></div><div><dt>Países afetados</dt><dd>Pelo menos 11 na Europa</dd></div><div><dt>Exploração</dt><dd>Confirmada: ataques reais com perda de produto</dd></div><div><dt>Autoria</dt><dd>Não confirmada</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://therecord.media/british-businesses-caught-in-europe-wide-supermarket-fridge-attacks" target="_blank" rel="noopener">Consultar The Record<small>3 nov 2026</small></a></li><li><a href="https://www.aljazeera.com/news/2026/11/4/eu-urges-action-as-germany-romania-and-uk-report-supermarket-cyberattacks" target="_blank" rel="noopener">Consultar Al Jazeera (AFP e Reuters)<small>4 nov 2026</small></a></li><li><a href="https://www.insurancejournal.com/news/international/2026/11/04/891427.htm" target="_blank" rel="noopener">Consultar Insurance Journal (Reuters)<small>4 nov 2026</small></a></li><li><a href="https://observador.pt/2026/11/03/cncs-acompanha-ciberataque-a-sete-lojas-intermarche-em-portugal-que-comprometeu-sistemas-de-refrigeracao/" target="_blank" rel="noopener">Consultar Observador (Lusa), com declarações do CNCS<small>3 nov 2026</small></a></li><li><a href="https://www.sentinelone.com/labs/defrost-and-disrupt-an-assessment-of-europe-s-refrigeration-attacks/" target="_blank" rel="noopener">Consultar SentinelOne Labs<small>3 nov 2026, atualizado a 4 nov</small></a></li>
+          </ul>
+        </aside>
+      </article>
+      <article class="story" id="php2shell">
+        <div class="body">
+          <div class="tags"><span class="tag high">ELEVADO</span><span class="tag dark">AUTOMAÇÃO</span><span class="tag">FONTE OFICIAL</span></div>
+          <h3>PHP2Shell chega aos PLC: WAGO e Festo publicam avisos</h3>
+          <p class="meta">2 a 5 de novembro de 2026, <i>CERT@VDE, NVD</i></p>
+          <h4>O que aconteceu</h4>
+          <p>O CERT@VDE publicou a 2 de novembro, com atualizações a 4 e 5, dois avisos sobre as falhas do PHP conhecidas como PHP2Shell em produtos industriais. Na WAGO, estão afetados os controladores CC100, Edge Controller, PFC100 G2, PFC200 G2 e PFC300 e os painéis TP600 e WP400 com firmware anterior a 4.10.4; na Festo, o FactoryViews até 1.12.1 e o MES4 instalado com XAMPP, em todas as versões. A CVE-2026-109618 está na lista KEV da CISA desde 26 de outubro, o que confirma exploração do PHP em geral, mas não contra estes equipamentos.</p>
+          <h4>O que diz a fonte oficial</h4>
+          <p>A WAGO corrigiu no firmware 4.10.4 (FW32) e disponibiliza um pacote de correção para quem está no 4.9.1 (FW31); até lá, recomenda desativar o servidor web do equipamento. A Festo corrigiu o FactoryViews na versão 1.12.2. Para o MES4 com XAMPP não há correção, porque usa PHP até 7.3, já fora de suporte; a Festo propõe alterações de configuração do PHP e do Apache, que reduzem muito o desempenho, e regras de firewall que limitem o acesso ao servidor aos painéis das estações.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>Muitos PLC e painéis modernos trazem um servidor web para configuração e diagnóstico. Quando esse servidor corre PHP, uma falha no PHP passa a ser uma falha do PLC. As duas falhas são do tipo uso de memória já libertada e permitem executar código remotamente sem autenticação.</p></div>
+          <h4>Porque acontece</h4>
+          <p>Os produtos industriais incorporam componentes genéricos, como o PHP, o Apache ou bibliotecas de terceiros, e dependem do fabricante para os atualizar. Entre a correção do PHP, a 21 de outubro, e os avisos industriais passaram duas semanas. Em produtos antigos o componente já nem tem suporte.</p>
+          <h4>Porque importa</h4>
+          <p>O alvo passa de aplicações web para controladores e painéis que comandam processos. O MES4 é usado sobretudo em laboratórios e fábricas de formação, mas o mesmo raciocínio vale para qualquer servidor de visualização ou MES montado sobre pacotes como o XAMPP. Não há, à data das fontes, confirmação de ataques contra equipamento WAGO ou Festo.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>Este caso é o melhor argumento desta semana para exigir aos fabricantes a lista de componentes de software de cada equipamento. Quem soube a 21 de outubro que o PHP tinha uma falha crítica não tinha forma de saber que o seu PLC também a tinha. E desativar o servidor web do controlador quando ninguém o usa é das medidas mais baratas que existem.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>CVE</dt><dd>CVE-2026-109618 e CVE-2026-109619</dd></div><div><dt>Severidade publicada</dt><dd>CVSS 3.1: 9,8 e 8,1</dd></div><div><dt>Produtos</dt><dd>WAGO CC100, Edge Controller, PFC100 G2, PFC200 G2, PFC300, TP600, WP400; Festo FactoryViews e MES4 com XAMPP</dd></div><div><dt>Versões afetadas</dt><dd>WAGO: firmware anterior a 4.10.4. Festo: FactoryViews 1.0.0 a 1.12.1; MES4 todas</dd></div><div><dt>Correção</dt><dd>WAGO 4.10.4 (FW32) ou pacote para FW31; FactoryViews 1.12.2; MES4 sem correção</dd></div><div><dt>Exploração</dt><dd>PHP: na lista KEV desde 26 out 2026. Contra WAGO e Festo: não confirmado</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://certvde.com/en/advisories/VDE-2026-132/" target="_blank" rel="noopener">Consultar CERT@VDE, WAGO<small>VDE-2026-132, 2 nov 2026</small></a></li><li><a href="https://certvde.com/en/advisories/VDE-2026-139/" target="_blank" rel="noopener">Consultar CERT@VDE, Festo<small>VDE-2026-139, 2 nov 2026, atualizado a 5 nov</small></a></li><li><a href="https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-109618" target="_blank" rel="noopener">Consultar NVD<small>Registo CVE-2026-109618</small></a></li>
+          </ul>
+        </aside>
+      </article>
+      <article class="story" id="plcnext">
+        <div class="body">
+          <div class="tags"><span class="tag mod">MODERADO</span><span class="tag dark">AUTOMAÇÃO</span><span class="tag">FONTE OFICIAL</span></div>
+          <h3>Phoenix Contact PLCnext: gestor de licenças abre porta à configuração</h3>
+          <p class="meta">4 de novembro de 2026, <i>CERT@VDE</i></p>
+          <h4>O que aconteceu</h4>
+          <p>O aviso VDE-2026-084 descreve quatro falhas no CodeMeter Runtime, o gestor de licenças da Wibu-Systems integrado no firmware PLCnext e nos controladores virtuais da Phoenix Contact. A mais grave, CVE-2026-81573, com CVSS 8,6, permite a um atacante sem autenticação ler e alterar a configuração do CodeMeter, incluindo a credencial do painel WebAdmin; as outras permitem bloquear o serviço e ler informação de licenças. A correção chega com o firmware 2026.0.6, previsto para o quarto trimestre de 2026.</p>
+          <h4>O que diz a fonte oficial</h4>
+          <p>A Phoenix Contact recomenda ativar a firewall do PLC na interface de gestão web para impedir o acesso não autenticado até haver correção. O aviso não indica exploração conhecida.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>O CodeMeter gere licenças de software. Quando funciona como servidor de licenças, aceita ligações de rede de outros equipamentos. As falhas estão nessa função de servidor, que não verifica de onde vêm os pedidos de configuração.</p></div>
+          <h4>Porque acontece</h4>
+          <p>O componente é de terceiros e as falhas foram publicadas pela Wibu-Systems em agosto. O fabricante do PLC só agora publica o aviso, e a correção ainda não existe. É o atraso normal da cadeia: componente, integrador, cliente.</p>
+          <h4>Porque importa</h4>
+          <p>Se o serviço de licenças cair, o software que dele depende deixa de arrancar. Além disso, controlar a configuração do CodeMeter dá um ponto de apoio dentro do controlador. A exposição real depende de a porta do serviço estar acessível a partir de outras redes.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>Três meses entre a falha no componente e o aviso do PLC, e mais algumas semanas até à correção. É nesse intervalo que a proteção depende apenas da rede. Uma firewall local ativa no controlador deixa de ser um extra.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>Fabricante</dt><dd>Phoenix Contact (componente Wibu-Systems)</dd></div><div><dt>CVE</dt><dd>CVE-2026-81573 (8,6), CVE-2026-81574 (8,2), CVE-2026-81576 (7,7), CVE-2026-81575 (7,5)</dd></div><div><dt>Produtos</dt><dd>AXC F 1152, 1252, 2000 EA, 2152, 3152; BPC 9102S, 9202S; RFC 4072R, 4072S; VL3 UPC 2440 EDGE; Virtual PLCnext Control</dd></div><div><dt>Versões afetadas</dt><dd>Firmware PLCnext 2025.0 a anterior a 2026.0.6; CodeMeter 8.0 a anterior a 8.41a</dd></div><div><dt>Correção</dt><dd>Firmware 2026.0.6, previsto para o 4.º trimestre de 2026</dd></div><div><dt>Exploração</dt><dd>Não confirmado. Não está na lista KEV</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://certvde.com/en/advisories/vde-2026-084" target="_blank" rel="noopener">Consultar CERT@VDE<small>VDE-2026-084, 4 nov 2026</small></a></li><li><a href="https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-81573" target="_blank" rel="noopener">Consultar NVD<small>Registo CVE-2026-81573</small></a></li>
+          </ul>
+        </aside>
+      </article>
+      <article class="story" id="cclink">
+        <div class="body">
+          <div class="tags"><span class="tag mod">MODERADO</span><span class="tag dark">REDES INDUSTRIAIS</span><span class="tag">FONTE OFICIAL</span></div>
+          <h3>Mitsubishi CC-Link IE TSN: falha sem correção chega a mais dois produtos</h3>
+          <p class="meta">5 de novembro de 2026, <i>Mitsubishi Electric PSIRT, NVD</i></p>
+          <h4>O que aconteceu</h4>
+          <p>A Mitsubishi Electric atualizou o aviso 2026-005 sobre a CVE-2026-13584 e acrescentou o acoplador NZ2CT-GN e o variador FR-D800-E a uma lista de 37 produtos, todos afetados em todas as versões. Quem tiver acesso à rede CC-Link IE TSN pode, com pacotes forjados e condições de temporização específicas, alterar dados de entrada e saída de controlo ou provocar uma negação de serviço. Não há correção, apenas mitigações.</p>
+          <h4>O que diz a fonte oficial</h4>
+          <p>O fabricante recomenda restringir o acesso físico aos equipamentos e à rede, com armários fechados e bloqueadores nas portas Ethernet, e operar estes produtos só em redes de confiança, protegidas por firewall. A falha foi comunicada por investigadores da Nozomi Networks.</p>
+          <div class="explain"><h4>Entender o tema</h4><p>O CC-Link IE TSN é uma rede Ethernet industrial determinística que liga controladores, servos, variadores e módulos de entradas e saídas. TSN significa que o tráfego tem tempos de entrega garantidos. A falha é de integridade: o protocolo não garante que uma mensagem não foi alterada pelo caminho.</p></div>
+          <h4>Porque acontece</h4>
+          <p>Muitos protocolos de campo foram desenhados para desempenho e determinismo, partindo do princípio de que a rede é fechada. Sem autenticação de mensagens, quem está na rede pode falar como se fosse um equipamento legítimo.</p>
+          <h4>Porque importa</h4>
+          <p>A severidade publicada é CVSS 4.0 de 7,1, com vetor de rede adjacente: o atacante tem de estar na rede de campo, o que reduz a probabilidade. Mas o impacto é sobre o processo físico, e sem correção a proteção depende inteiramente de segmentação e de controlo físico.</p>
+          <div class="verify"><h4>A minha leitura</h4><p>Falhas de desenho num protocolo de campo não desaparecem com uma atualização. Aqui, fechar o armário e bloquear portas de rede livres é uma medida de cibersegurança tão real como uma firewall.</p></div>
+        </div>
+        <aside class="side">
+          <h5>FICHA</h5>
+          <dl><div><dt>Fabricante</dt><dd>Mitsubishi Electric</dd></div><div><dt>CVE</dt><dd>CVE-2026-13584</dd></div><div><dt>Severidade publicada</dt><dd>CVSS 4.0: 7,1 (rede adjacente)</dd></div><div><dt>Produtos</dt><dd>37 entradas, incluindo MELSEC MX, módulos RJ71GN11 e NZ2GN, servos MR-J5 e MR-JET, variadores FR-A800, F800, E800 e FR-D800-E, painéis GOT3000</dd></div><div><dt>Versões afetadas</dt><dd>Todas</dd></div><div><dt>Correção</dt><dd>Sem correção; só mitigações</dd></div><div><dt>Exploração</dt><dd>Não confirmado. Não está na lista KEV</dd></div></dl>
+          <h5>FONTES</h5>
+          <ul class="links">
+            <li><a href="https://www.mitsubishielectric.com/psirt/vulnerability/pdf/2026-005_en.pdf" target="_blank" rel="noopener">Consultar Mitsubishi Electric PSIRT<small>Aviso 2026-005, atualizado a 5 nov 2026</small></a></li><li><a href="https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-13584" target="_blank" rel="noopener">Consultar NVD<small>Registo CVE-2026-13584</small></a></li>
+          </ul>
+        </aside>
+      </article>
+      <div class="mini">
+        <article id="eua-frio">
+          <div class="tags"><span class="tag info">INFORMATIVO</span><span class="tag">IMPRENSA ESPECIALIZADA</span></div>
+          <h4>EUA: alerta conjunto sobre refrigeração industrial e cadeia de frio</h4>
+          <p>A 5 de novembro, a CISA, o FBI e os departamentos de Saúde, Agricultura e Transportes dos EUA publicaram recomendações conjuntas para controladores de refrigeração e monitorização da cadeia de frio. Pedem que os controladores saiam da internet, que a OT fique numa rede separada, alertas para setpoints fora de intervalo e cópias de segurança das configurações. Segundo a IT-Connect, o alerta não nomeia fabricantes, CVE nem autores.</p>
+          <ul class="links">
+            <li><a href="https://www.it-connect.tech/after-europe-the-fbi-and-cisa-warn-of-cyberattacks-targeting-refrigeration-systems/" target="_blank" rel="noopener">Consultar IT-Connect<small>6 nov 2026; resume o alerta da CISA</small></a></li>
+          </ul>
+        </article>
+        <article id="zyxel">
+          <div class="tags"><span class="tag info">INFORMATIVO</span><span class="tag">FONTE OFICIAL</span></div>
+          <h4>Zyxel: escalada de privilégios em pontos de acesso e routers</h4>
+          <p>A Zyxel corrigiu a CVE-2026-76955, um transbordo de memória que permite a um atacante na rede local obter mais privilégios em dezenas de pontos de acesso Wi-Fi, nos FWA7 e no router USG LITE 60AX. O aviso não publica pontuação CVSS nem refere exploração. O WAC500H só tem correção a pedido ao suporte.</p>
+          <ul class="links">
+            <li><a href="https://www.zyxel.com/global/en/support/security-advisories/zyxel-security-advisory-for-buffer-overflow-vulnerability-in-certain-aps-fwa7-and-security-routers-11-03-2026" target="_blank" rel="noopener">Consultar aviso da Zyxel<small>3 nov 2026</small></a></li>
+          </ul>
+        </article>
+      </div>
+      <div>
+        <h3 class="section-h">Casos em acompanhamento</h3>
+        <p class="section-d">Casos que continuam a evoluir. Em cada edição, uma linha diz o que mudou desde a anterior.</p>
+        <div class="tracker" role="table" aria-label="Casos em acompanhamento">
+          <div class="row head" role="row"><span role="columnheader">Caso</span><span role="columnheader">Tendência</span><span role="columnheader">O que mudou</span></div>
+          <div class="row" role="row"><span class="case" role="cell">Ataques ao frio (Danfoss, Copeland e outros)</span><span class="st up" role="cell">A agravar</span><p role="cell">Chegou a fornecedores de carne no Reino Unido, à Alemanha, Roménia e Itália e a bancos de sangue em França. Alerta conjunto nos EUA a 5 de novembro; a Comissão Europeia promete resposta conjunta.</p></div>
+          <div class="row" role="row"><span class="case" role="cell">PHP2Shell, CVE-2026-109618</span><span class="st up" role="cell">A agravar</span><p role="cell">Passou das aplicações web para firmware de PLC e painéis: WAGO e Festo publicaram avisos entre 2 e 5 de novembro. Na lista KEV desde 26 de outubro.</p></div>
+          <div class="row" role="row"><span class="case" role="cell">Node-RED, CVE-2026-58115</span><span class="st same" role="cell">A vigiar</span><p role="cell">Sem desenvolvimento novo verificado desde a edição de 5 de novembro.</p></div>
+          <div class="row" role="row"><span class="case" role="cell">WatchGuard Fireware</span><span class="st same" role="cell">A vigiar</span><p role="cell">Sem desenvolvimento novo verificado desde a edição de 5 de novembro.</p></div>
+          
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═════════════ PARTE III ═════════════ -->
+  <section id="parte-3" aria-labelledby="h-p3">
+    <div class="opener">
+      <div class="wrap">
+        <div class="big" aria-hidden="true">III</div>
+        <div>
+          <h2 id="h-p3">Eventos</h2>
+          <p>Feiras, congressos e conferências até maio de 2027. Na Península Ibérica, tudo o que for relevante para OT, IIoT e indústria alimentar. Na Europa, só os de primeira linha.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+
+      <div class="ev-group" id="perto">
+        <h3>Na Península Ibérica</h3>
+        <p>Por ordem cronológica.</p>
+        <div class="events">
+          <article class="event near">
+            <div class="date"><span class="m">NOV 2026</span><span class="d">4</span><span class="to">até 6</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">★ PENÍNSULA IBÉRICA</span><span class="now">ATÉ 6 DE NOVEMBRO</span>
+              <h4>EXPOCARNE e EXPOALIMENTA Porto 2026</h4>
+              <p class="where">Exponor, Matosinhos, Portugal</p>
+              <div class="ev-facts"><span>Organiza <b>Exposalão</b></span><span>Para <b>profissionais</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> feiras profissionais de maquinaria, equipamentos e logística para a indústria da carne e para a indústria alimentar. Último dia a 6 de novembro. Datas publicadas em agregadores de feiras; confirme na página do organizador.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn gold" href="https://www.eventseye.com/fairs/f-expocarne-7520-1.html" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Ligação de agregador</span>
+            </div>
+          </article>
+          <article class="event near">
+            <div class="date"><span class="m">NOV 2026</span><span class="d">11</span><span class="to">até 13</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">★ PENÍNSULA IBÉRICA</span>
+              <h4>i4.0 EXPO, com EXPOMETAL, 3D ADDITIVE EXPO e SUBCONTRATAÇÃO</h4>
+              <p class="where">Exposalão, Batalha, Portugal</p>
+              <div class="ev-facts"><span>Organiza <b>Exposalão</b></span><span>Para <b>profissionais (só dias úteis)</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> feira de Indústria 4.0, automação e robótica, integrada na EXPOMETAL. A organização prevê mais de 200 empresas, com áreas que vão da automação e robótica ao software industrial.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn gold" href="https://exposalao.pt/en/noticia/expometal_prepara_grande_regresso_a_batalha_em_2026" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+          <article class="event near" id="ev-meat">
+            <div class="date"><span class="m">FEV 2027</span><span class="d">16</span><span class="to">até 18</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">★ EM DESTAQUE</span>
+              <h4>Meat Attraction 2027, dentro da Anuga Select Ibérica</h4>
+              <p class="where">IFEMA MADRID, Madrid, Espanha</p>
+              <div class="ev-facts"><span>Organiza <b>IFEMA MADRID e ANICE</b></span><span>Para <b>setor cárnico</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> a principal feira internacional da indústria da carne na Península, pela primeira vez integrada na Anuga Select Ibérica, o projeto da IFEMA e da Koelnmesse. É o evento mais diretamente ligado ao abate e à desmancha deste período.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn gold" href="https://www.ifema.es/anuga-select-iberica/notas-prensa/meat-attraction-se-reinventa-en-2027" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+          <article class="event near">
+            <div class="date"><span class="m">MAR 2027</span><span class="d">31</span><span class="to">até 2 abr</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">★ PENÍNSULA IBÉRICA</span>
+              <h4>Advanced Factories 2027</h4>
+              <p class="where">Barcelona, Espanha (recinto de 2027 não confirmado)</p>
+              <div class="ev-facts"><span>Organiza <b>NEBEXT</b></span><span>Para <b>indústria, automação e robótica</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> exposição e congresso anual de automação, robótica e tecnologias 4.0, de novo em simultâneo com a AMT, Advanced Machine Tools. A edição de 2026, na Fira de Barcelona, teve mais de 34 mil participantes.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn gold" href="https://www.advancedfactories.com/app/uploads/sites/3/2026/05/el-ministro-de-industria-y-turismo-jordi-hereu-clausura-la-decima-edicion-de-advanced-factories-con-34.657-congresistas.pdf" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Comunicado oficial (PDF)</span>
+            </div>
+          </article>
+          <article class="event near">
+            <div class="date"><span class="m">MAI 2027</span><span class="d">4</span><span class="to">até 7</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">★ PENÍNSULA IBÉRICA</span>
+              <h4>Hispack 2027</h4>
+              <p class="where">Fira de Barcelona, Gran Via, Barcelona, Espanha</p>
+              <div class="ev-facts"><span>Organiza <b>Fira de Barcelona</b></span><span>Para <b>embalagem, processo e automação</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> 20.ª edição da feira de embalagem, com maquinaria de processo e embalagem, rotulagem e uma área de logística, robótica e automação. A organização prevê mais de 900 expositores.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn gold" href="https://www.hispack.com/en/press-release/hispack_s011/hispack-to-mark-its-20th-edition-in-2027-by-enhancing-the-transformative-power-of-packaging/" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+          <article class="event">
+            <div class="date"><span class="m">JUN 2027</span><span class="d">1</span><span class="to">até 4</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">A SEGUIR</span>
+              <h4>EMAF 2027</h4>
+              <p class="where">Exponor, Matosinhos, Portugal</p>
+              <div class="ev-facts"><span>Organiza <b>Exponor</b></span><span>Para <b>indústria transformadora</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> a maior feira portuguesa de máquinas, equipamentos e serviços para a indústria, com robótica, automação e Indústria 4.0. Fica logo depois do horizonte de seis meses desta agenda. A página oficial ainda mistura datas de 2025; confirme antes de planear.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn" href="https://exponor.pt/en/emaf/" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="ev-group" id="europa">
+        <h3>Europa</h3>
+        <p>Só eventos de primeira linha ou com ligação direta a OT e IIoT.</p>
+        <div class="events">
+          <article class="event">
+            <div class="date"><span class="m">NOV 2026</span><span class="d">24</span><span class="to">até 26</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              
+              <h4>SPS, Smart Production Solutions 2026</h4>
+              <p class="where">NürnbergMesse, Nuremberga, Alemanha</p>
+              <div class="ev-facts"><span>Organiza <b>Mesago Messe Frankfurt</b></span><span>Para <b>automação industrial</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> a principal feira europeia de automação elétrica e digital, com mais de 900 expositores registados em maio, entre eles os principais fabricantes de PLC, redes industriais e software OT.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn" href="https://corporate.mesago.com/events/en/press/press-releases/press-releases-events/sps2026-update.html" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+          <article class="event">
+            <div class="date"><span class="m">FEV 2027</span><span class="d">3</span><span class="to">até 4</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              
+              <h4>IoT Tech Expo Global 2027</h4>
+              <p class="where">Olympia, Londres, Reino Unido (recinto a confirmar)</p>
+              <div class="ev-facts"><span>Organiza <b>TechForge</b></span><span>Para <b>IoT empresarial e industrial</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> exposição e conferência de IoT, organizada pelo grupo editorial do IoT Tech News. A página do evento ainda indica o recinto como a confirmar.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn" href="https://iottechnews.com/events/iot-tech-expo-global-2027" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Página do organizador</span>
+            </div>
+          </article>
+          <article class="event" id="ev-anuga">
+            <div class="date"><span class="m">FEV 2027</span><span class="d">23</span><span class="to">até 26</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              <span class="star">★ INDÚSTRIA ALIMENTAR</span>
+              <h4>Anuga FoodTec 2027</h4>
+              <p class="where">Koelnmesse, Colónia, Alemanha</p>
+              <div class="ev-facts"><span>Organiza <b>Koelnmesse</b></span><span>Para <b>tecnologia alimentar e de bebidas</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> a feira internacional de tecnologia para a indústria alimentar, com áreas de automação, digitalização, energia, processo, embalagem e segurança alimentar. Aberta das 9h00 às 18h00, e até às 16h00 no último dia.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn" href="https://anugafoodtec.com/trade-fair/anuga-foodtec/dates-opening-hours" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+          <article class="event">
+            <div class="date"><span class="m">MAR 2027</span><span class="d">16</span><span class="to">até 18</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              
+              <h4>embedded world Exhibition &amp; Conference 2027</h4>
+              <p class="where">Exhibition Centre Nuremberg, Nuremberga, Alemanha</p>
+              <div class="ev-facts"><span>Organiza <b>NürnbergMesse</b></span><span>Para <b>sistemas embebidos e edge</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> edição de 25.º aniversário da referência europeia em sistemas embebidos, com forte presença de edge AI, segurança embebida e componentes IIoT.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn" href="https://www.embedded-world.de/en/press/press-releases/2026/03/embedded-world-2026-closing-report" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+          <article class="event">
+            <div class="date"><span class="m">ABR 2027</span><span class="d">5</span><span class="to">até 8</span><span class="fmt">PRESENCIAL</span></div>
+            <div class="ev-body">
+              
+              <h4>HANNOVER MESSE 2027</h4>
+              <p class="where">Messegelände, Hanôver, Alemanha</p>
+              <div class="ev-facts"><span>Organiza <b>Deutsche Messe</b></span><span>Para <b>indústria, automação e energia</b></span><span>Inscrição <b>não confirmado</b></span><span>Custo <b>não confirmado</b></span></div>
+              <p><b>Sobre:</b> a maior feira industrial do mundo, de segunda a quinta-feira, das 9h00 às 18h00.</p>
+            </div>
+            <div class="ev-cta">
+              <a class="btn" href="https://www.hannovermesse.de/en/for-visitors/opening-hours/" target="_blank" rel="noopener">Ver evento</a>
+              <span class="ev-note">Fonte oficial</span>
+            </div>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="check closing" aria-labelledby="h-end">
+      <h2 id="h-end">Obrigado por ler</h2>
+      <p>Se esta edição lhe foi útil, partilhe-a com quem trabalha em tecnologia, indústria ou segurança. Todas as semanas há uma nova edição, e as anteriores ficam disponíveis na <a href="index.html">página do Radar</a>.</p>
+      <a class="li-btn" href="https://www.linkedin.com/in/brenocarneiro/" target="_blank" rel="noopener"><img src="linkedin.png" alt="" width="24" height="20" style="display:block" onerror="this.remove()">Breno Carneiro no LinkedIn</a>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>Radar OT &amp; IIoT</b>, por Breno Carneiro. As opiniões são do autor e não representam nenhuma organização.</span>
+    <span>Gerado a 6 nov 2026, 17:13 (hora de Portugal continental), notícias de 30 out a 6 nov 2026, agenda até 6 mai 2027</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var bar=document.querySelector('.progress');
+  var links=[].slice.call(document.querySelectorAll('.bar nav a'));
+  var secs=links.map(function(a){return document.getElementById(a.dataset.sec);});
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';
+    var cur=-1;
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<120) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
