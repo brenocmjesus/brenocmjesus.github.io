@@ -66,7 +66,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cover .wrap{padding-top:4rem;padding-bottom:3.5rem;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(16rem,1fr);gap:3rem;align-items:end}
 .kick{font-family:var(--display);font-size:.9rem;font-weight:600;color:var(--ink-3);margin:0 0 1.5rem}
 .kick b{color:var(--ink);font-weight:800}
-.title{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(4rem,13vw,9.5rem);line-height:.82;letter-spacing:-.03em;margin:0}
+.title{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(3.5rem,8vw,8rem);white-space:nowrap;line-height:.82;letter-spacing:-.03em;margin:0}
 .title-sub{font-family:var(--display);font-weight:700;font-stretch:125%;font-size:clamp(1.4rem,3.6vw,2.6rem);letter-spacing:-.01em;margin:.6rem 0 0;color:var(--ink-2)}
 .title-sub em{font-style:normal;color:var(--gold-ink)}
 .dek{max-width:34rem;font-size:1.25rem;line-height:1.5;color:var(--ink-2);margin:1.75rem 0 0}
@@ -207,6 +207,9 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:
 .check li::before{content:counter(k);font-family:var(--display);font-weight:900;color:var(--gold);font-size:1.1rem}
 .check b{font-family:var(--display)}
 
+.li-btn{display:inline-flex;align-items:center;gap:.6rem;margin-top:.5rem;min-height:44px;padding:.6rem 1.1rem;font-family:var(--display);font-weight:800;font-size:.95rem;text-decoration:none;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:6px;border-bottom:3px solid var(--gold)}
+.li-btn:hover{filter:brightness(1.15)}
+.closing{text-align:left}
 .legend{font-family:var(--display);font-size:.85rem;color:var(--ink-3);line-height:1.65;margin:2.5rem 0 0;max-width:52rem}
 footer{border-top:1px solid var(--rule);margin-top:3rem}
 footer .wrap{padding-top:1.75rem;padding-bottom:3rem;font-family:var(--display);font-size:.85rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
@@ -798,18 +801,17 @@ footer b{color:var(--ink)}
   </section>
 
   <div class="wrap">
-    <section class="check" aria-labelledby="h-end">
-      <h2 id="h-end">E na sua indústria?</h2>
-      <p>Que caso desta semana mais pesa na sua operação? Deixe a sua leitura nos comentários da publicação no LinkedIn. As edições anteriores estão todas na <a href="index.html">página do Radar</a>.</p>
+    <section class="check closing" aria-labelledby="h-end">
+      <h2 id="h-end">Obrigado por ler</h2>
+      <p>Se esta edição lhe foi útil, partilhe-a com quem trabalha em tecnologia, indústria ou segurança. Todas as semanas há uma nova edição, e as anteriores ficam disponíveis na <a href="index.html">página do Radar</a>.</p>
+      <a class="li-btn" href="https://www.linkedin.com/in/brenocarneiro/" target="_blank" rel="noopener"><img src="linkedin.png" alt="" width="24" height="20" style="display:block" onerror="this.remove()">Breno Carneiro no LinkedIn</a>
     </section>
-
-    <p class="legend"><b>Como ler esta edição.</b> As classificações CRÍTICO, ELEVADO, MODERADO e INFORMATIVO resumem o risco geral comunicado pelas fontes, não a exposição de uma instalação concreta. <b>Não confirmado</b> quer dizer que o dado não foi publicado oficialmente ou não foi possível verificá-lo. Os resumos são paráfrases e a análise é pessoal; para o texto integral, siga as ligações de cada fonte. As opiniões são do autor e não representam nenhuma organização.</p>
   </div>
 </main>
 
 <footer>
   <div class="wrap">
-    <span><b>Radar OT &amp; IIoT</b>, por Breno Carneiro</span>
+    <span><b>Radar OT &amp; IIoT</b>, por Breno Carneiro. As opiniões são do autor e não representam nenhuma organização.</span>
     <span>Gerado a 5 nov 2026, 11:39 (hora de Portugal continental), notícias de 29 out a 5 nov 2026, agenda até 5 mai 2027</span>
   </div>
 </footer>
