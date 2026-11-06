@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Radar OT &amp; IIoT, por Breno Carneiro</title>
+<meta name="description" content="Revista semanal sobre OT, IIoT e cibersegurança industrial: lançamentos, segurança e eventos na Península Ibérica e na Europa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --page:#EFEEEA; --paper:#FFFFFF; --ink:#1B1B19; --ink-2:#45443F; --ink-3:#6C6B65;
+  --rule:#DCDBD5; --gold:#B59A58; --gold-ink:#7A6535; --crit:#B4442F;
+  --band:#1B1B19; --band-ink:#F2F1EC; --band-ink-2:#B9B8B1;
+  --display:'Archivo','Arial Narrow',Arial,sans-serif;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#141413; --paper:#1D1D1B; --ink:#EDECE6; --ink-2:#C8C7C0; --ink-3:#9B9A93;
+    --rule:#33332F; --gold:#CBAF6B; --gold-ink:#D9C084; --crit:#E58572;
+    --band:#0D0D0C; --band-ink:#EDECE6; --band-ink-2:#A3A29B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#141413; --paper:#1D1D1B; --ink:#EDECE6; --ink-2:#C8C7C0; --ink-3:#9B9A93;
+  --rule:#33332F; --gold:#CBAF6B; --gold-ink:#D9C084; --crit:#E58572;
+  --band:#0D0D0C; --band-ink:#EDECE6; --band-ink-2:#A3A29B;
+}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--serif);font-size:1.125rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:72rem;margin:0 auto;padding:0 1.5rem}
+
+header{background:var(--paper);border-bottom:1px solid var(--rule)}
+header .wrap{padding-top:4.5rem;padding-bottom:3.5rem}
+.kick{font-family:var(--display);font-size:.9rem;font-weight:600;color:var(--ink-3);margin:0 0 1.5rem}
+.kick b{color:var(--ink);font-weight:800}
+h1{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(4rem,14vw,10rem);line-height:.82;letter-spacing:-.03em;margin:0}
+.sub{font-family:var(--display);font-weight:700;font-stretch:125%;font-size:clamp(1.4rem,3.6vw,2.6rem);margin:.6rem 0 0;color:var(--ink-2)}
+.sub em{font-style:normal;color:var(--gold-ink)}
+.about{max-width:38rem;font-size:1.25rem;line-height:1.55;color:var(--ink-2);margin:2rem 0 0;padding-top:1.25rem;border-top:4px solid var(--ink)}
+
+.latest{padding:3.5rem 0 1rem}
+.label{font-family:var(--display);font-size:.9rem;font-weight:800;color:var(--ink-3);margin:0 0 1rem}
+.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);background:var(--band);color:var(--band-ink);border-radius:14px;overflow:hidden;text-decoration:none}
+.feature .left{padding:2.5rem;border-right:4px solid var(--gold);display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
+.feature .date{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(3rem,7vw,5rem);line-height:.9;color:var(--gold)}
+.feature .date small{display:block;font-size:.3em;font-weight:700;color:var(--band-ink-2);letter-spacing:.02em;margin-top:.6rem}
+.feature .go{font-family:var(--display);font-weight:800;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem;border-bottom:3px solid var(--gold);padding-bottom:.25rem;align-self:flex-start}
+.feature .right{padding:2.5rem}
+.feature h2{font-family:var(--display);font-weight:800;font-stretch:108%;font-size:clamp(1.5rem,3vw,2rem);line-height:1.15;margin:0 0 1.5rem}
+.feature ol{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+.feature li{display:grid;grid-template-columns:2rem 1fr;gap:.75rem;padding-top:1rem;border-top:1px solid #3A3A35;color:var(--band-ink-2);font-size:1.05rem;line-height:1.5}
+.feature li span{font-family:var(--display);font-weight:900;color:var(--gold)}
+.feature:hover .go{color:var(--gold)}
+
+.archive{padding:3rem 0 1rem}
+.list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
+.list a{display:grid;grid-template-columns:9rem minmax(0,1fr) auto;gap:1.5rem;align-items:baseline;padding:1.25rem 0;border-bottom:1px solid var(--rule);text-decoration:none}
+.list .d{font-family:var(--display);font-weight:800}
+.list .t{font-size:1.1rem}
+.list .r{font-family:var(--display);font-size:.85rem;font-weight:700;color:var(--gold-ink)}
+.list a:hover .t{text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px}
+
+.parts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;padding:3rem 0 0}
+.parts div{border-top:2px solid var(--ink);padding-top:1rem}
+.parts .n{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:2.6rem;line-height:1;color:var(--gold)}
+.parts h3{font-family:var(--display);font-weight:800;font-size:1.2rem;margin:.4rem 0 .3rem}
+.parts p{margin:0;color:var(--ink-3);font-size:1rem}
+
+footer{border-top:1px solid var(--rule);margin-top:4rem}
+footer .wrap{padding-top:1.75rem;padding-bottom:3rem;font-family:var(--display);font-size:.85rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
+footer b{color:var(--ink)}
+
+@media (max-width:820px){
+  .feature{grid-template-columns:1fr}
+  .feature .left{border-right:0;border-bottom:4px solid var(--gold)}
+  .parts{grid-template-columns:1fr}
+  .list a{grid-template-columns:1fr;gap:.2rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="kick"><b>por Breno Carneiro</b>, Operational Technology &amp; Industrial IoT</p>
+    <h1>RADAR</h1>
+    <p class="sub">OT <em>&amp;</em> IIoT</p>
+    <p class="about">Uma revista semanal para quem gere tecnologia industrial. Todas as segundas-feiras: o que foi lançado, o que foi atacado e onde vale a pena estar, com foco na Península Ibérica e na indústria alimentar.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="latest" aria-labelledby="h-latest">
+    <p class="label" id="h-latest">Edição mais recente</p>
+    <a class="feature" href="radar-2026-11-05.html">
+      <div class="left">
+        <div class="date">5 nov<small>2026, notícias de 29 out a 5 nov</small></div>
+        <span class="go">Ler a edição →</span>
+      </div>
+      <div class="right">
+        <h2>Ataques ao frio chegam a Portugal, Node-RED explorado e a agenda até maio</h2>
+        <ol>
+          <li><span>1</span>A campanha que põe os controladores de frio em degelo contínuo teve uma segunda vaga e chegou a Portugal.</li>
+          <li><span>2</span>Uma falha com gravidade máxima no Node-RED, usado em gateways industriais, já está a ser explorada.</li>
+          <li><span>3</span>A Meat Attraction volta a Madrid em fevereiro, integrada na nova Anuga Select Ibérica.</li>
+        </ol>
+      </div>
+    </a>
+  </section>
+
+  <section class="archive" aria-labelledby="h-arch">
+    <p class="label" id="h-arch">Todas as edições</p>
+    <ul class="list">
+      <li><a href="radar-2026-11-05.html"><span class="d">5 nov 2026</span><span class="t">Ataques ao frio chegam a Portugal, Node-RED explorado e a agenda até maio</span><span class="r">Ler</span></a></li>
+    </ul>
+  </section>
+
+  <section class="parts" aria-label="Como está organizada cada edição">
+    <div><span class="n">I</span><h3>Novidades e lançamentos</h3><p>O que os fabricantes anunciaram, separando o que está demonstrado do que é promessa.</p></div>
+    <div><span class="n">II</span><h3>Segurança</h3><p>Vulnerabilidades, incidentes e regulação em OT e ICS, com fonte em cada caso.</p></div>
+    <div><span class="n">III</span><h3>Eventos</h3><p>Feiras e congressos para os próximos seis meses, primeiro na Península Ibérica.</p></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><b>Radar OT &amp; IIoT</b>, por Breno Carneiro</span>
+    <span>As opiniões são do autor e não representam nenhuma organização.</span>
+  </div>
+</footer>
+
+</body>
+</html>
