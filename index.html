@@ -39,20 +39,25 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2
 .wrap{max-width:72rem;margin:0 auto;padding:0 1.5rem}
 
 header{background:var(--paper);border-bottom:1px solid var(--rule)}
-header .wrap{padding-top:4.5rem;padding-bottom:3.5rem}
+header .wrap{padding-top:4.5rem;padding-bottom:3.5rem;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(18rem,1fr);gap:3rem;align-items:end}
 .kick{font-family:var(--display);font-size:.9rem;font-weight:600;color:var(--ink-3);margin:0 0 1.5rem}
 .kick b{color:var(--ink);font-weight:800}
 h1{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(4rem,14vw,10rem);line-height:.82;letter-spacing:-.03em;margin:0}
 .sub{font-family:var(--display);font-weight:700;font-stretch:125%;font-size:clamp(1.4rem,3.6vw,2.6rem);margin:.6rem 0 0;color:var(--ink-2)}
 .sub em{font-style:normal;color:var(--gold-ink)}
-.about{max-width:38rem;font-size:1.25rem;line-height:1.55;color:var(--ink-2);margin:2rem 0 0;padding-top:1.25rem;border-top:4px solid var(--ink)}
+.side{border-top:4px solid var(--ink);padding-top:1.25rem}
+.about{font-size:1.2rem;line-height:1.55;color:var(--ink-2);margin:0 0 1.5rem}
+.facts{margin:0;font-family:var(--display);display:grid;gap:.85rem}
+.facts div{display:grid;grid-template-columns:7.5rem 1fr;gap:.75rem;border-top:1px solid var(--rule);padding-top:.85rem}
+.facts dt{font-size:.82rem;font-weight:600;color:var(--ink-3)}
+.facts dd{margin:0;font-weight:700;font-size:.98rem}
 
 .latest{padding:3.5rem 0 1rem}
 .label{font-family:var(--display);font-size:.9rem;font-weight:800;color:var(--ink-3);margin:0 0 1rem}
 .feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);background:var(--band);color:var(--band-ink);border-radius:14px;overflow:hidden;text-decoration:none}
 .feature .left{padding:2.5rem;border-right:4px solid var(--gold);display:flex;flex-direction:column;justify-content:space-between;gap:2rem}
 .feature .date{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:clamp(3rem,7vw,5rem);line-height:.9;color:var(--gold)}
-.feature .date small{display:block;font-size:.3em;font-weight:700;color:var(--band-ink-2);letter-spacing:.02em;margin-top:.6rem}
+.feature .date small{display:block;font-size:1rem;line-height:1.4;font-weight:600;font-stretch:100%;color:var(--band-ink-2);letter-spacing:0;margin-top:1rem}
 .feature .go{font-family:var(--display);font-weight:800;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem;border-bottom:3px solid var(--gold);padding-bottom:.25rem;align-self:flex-start}
 .feature .right{padding:2.5rem}
 .feature h2{font-family:var(--display);font-weight:800;font-stretch:108%;font-size:clamp(1.5rem,3vw,2rem);line-height:1.15;margin:0 0 1.5rem}
@@ -80,6 +85,7 @@ footer .wrap{padding-top:1.75rem;padding-bottom:3rem;font-family:var(--display);
 footer b{color:var(--ink)}
 
 @media (max-width:820px){
+  header .wrap{grid-template-columns:1fr;gap:2rem}
   .feature{grid-template-columns:1fr}
   .feature .left{border-right:0;border-bottom:4px solid var(--gold)}
   .parts{grid-template-columns:1fr}
@@ -91,10 +97,19 @@ footer b{color:var(--ink)}
 
 <header>
   <div class="wrap">
-    <p class="kick"><b>por Breno Carneiro</b>, Operational Technology &amp; Industrial IoT</p>
-    <h1>RADAR</h1>
-    <p class="sub">OT <em>&amp;</em> IIoT</p>
-    <p class="about">Uma revista semanal para quem gere tecnologia industrial. Todas as segundas-feiras: o que foi lançado, o que foi atacado e onde vale a pena estar, com foco na Península Ibérica e na indústria alimentar.</p>
+    <div>
+      <p class="kick"><b>por Breno Carneiro</b>, Operational Technology &amp; Industrial IoT</p>
+      <h1>RADAR</h1>
+      <p class="sub">OT <em>&amp;</em> IIoT</p>
+    </div>
+    <div class="side">
+      <p class="about">Uma revista semanal para quem gere tecnologia industrial: o que foi lançado, o que foi atacado e onde vale a pena estar.</p>
+      <dl class="facts">
+        <div><dt>Periodicidade</dt><dd>Semanal, à segunda-feira</dd></div>
+        <div><dt>Temas</dt><dd>OT, IIoT e cibersegurança industrial</dd></div>
+        <div><dt>Foco</dt><dd>Península Ibérica e indústria alimentar</dd></div>
+      </dl>
+    </div>
   </div>
 </header>
 
